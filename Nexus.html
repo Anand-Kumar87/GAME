@@ -1,0 +1,3003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Gaming Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --secondary: #00BFFF;
+            --dark: #121212;
+            --light: #f8f8f8;
+            --accent: #FF4500;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+        
+        header {
+            background: linear-gradient(90deg, rgba(138,43,226,0.8) 0%, rgba(0,191,255,0.8) 100%);
+            padding: 1.5rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 1rem 5%;
+            background: rgba(18,18,18,0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #00BFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            bottom: 5px;
+            right: -12px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--light);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-icons a {
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icons a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(18,18,18,0.9) 0%, rgba(138,43,226,0.6) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 5%;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .featured {
+            padding: 5rem 5%;
+            position: relative;
+        }
+        
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .game-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(138,43,226,0.3);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        .game-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover .game-img {
+            transform: scale(1.1);
+        }
+        
+        .game-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .game-card:hover .game-title {
+            color: var(--secondary);
+        }
+        
+        .game-desc {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .game-price {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .game-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .play-now {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            z-index: 3;
+        }
+        
+        .game-card:hover .play-now {
+            bottom: 20px;
+            opacity: 1;
+        }
+        
+        .news {
+            padding: 5rem 5%;
+            background: linear-gradient(to bottom, var(--dark), #1a1a1a);
+            position: relative;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .news-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,191,255,0.2);
+        }
+        
+        .news-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .news-card:hover .news-img {
+            transform: scale(1.05);
+        }
+        
+        .news-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .news-date {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .news-date i {
+            font-size: 0.7rem;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .news-card:hover .news-title {
+            color: var(--secondary);
+        }
+        
+        .news-excerpt {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        
+        .read-more {
+            align-self: flex-start;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .game-trailer {
+            padding: 5rem 5%;
+            background: #0a0a0a;
+            text-align: center;
+        }
+        
+        .trailer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        .trailer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .trailer-overlay:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+                    }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+        
+        .play-btn i {
+            color: var(--light);
+            font-size: 2rem;
+            margin-left: 5px;
+        }
+        
+        .trailer-thumbnail {
+            width: 100%;
+            display: block;
+        }
+        
+        .game-demo {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-header p {
+            max-width: 700px;
+            margin: 1rem auto;
+            color: #aaa;
+        }
+        
+        .game-window {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .game-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .control-btn:hover {
+            background: var(--primary);
+        }
+        
+        .control-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .game-selection {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .game-option {
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 150px;
+            text-align: center;
+        }
+        
+        .game-option:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .game-option.active {
+            background: var(--primary);
+        }
+        
+        .game-option img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .reviews {
+            padding: 5rem 5%;
+            background: linear-gradient(to top, var(--dark), #1a1a1a);
+        }
+        
+        .review-slider {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .review-slide {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .review-slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(138,43,226,0.2);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .reviewer-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .reviewer-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .reviewer-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .review-rating i {
+            color: gold;
+        }
+        
+        .review-content {
+            color: #ddd;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        .review-game {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .review-game img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        
+        .review-game-info h5 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .review-game-info p {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+        
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .slider-nav:hover {
+            background: var(--primary);
+        }
+        
+        .slider-prev {
+            left: -25px;
+        }
+        
+        .slider-next {
+            right: -25px;
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+        
+        .cta {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 80%);
+            animation: pulse 15s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        footer {
+            background: #0a0a0a;
+            padding: 3rem 5%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #00BFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-desc {
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .newsletter {
+            margin-top: 1.5rem;
+        }
+        
+        .newsletter p {
+            color: #999;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: var(--light);
+            outline: none;
+        }
+        
+        .newsletter-input:focus {
+            border-color: var(--primary);
+        }
+        
+        .newsletter-btn {
+            padding: 0.8rem 1.2rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            position: relative;
+            transform: translateY(50px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .form-input {
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,            0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: var(--light);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+        
+        .form-submit {
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .form-submit:hover {
+            background: var(--secondary);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .form-options a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-options a:hover {
+            color: var(--accent);
+        }
+        
+        .social-login {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .social-login p {
+            color: #aaa;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            color: var(--light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-btn.facebook:hover {
+            background: #3b5998;
+        }
+        
+        .social-btn.google:hover {
+            background: #db4437;
+        }
+        
+        .social-btn.twitter:hover {
+            background: #1da1f2;
+        }
+        
+        /* Toast notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .toast {
+            background: rgba(0,0,0,0.8);
+            color: var(--light);
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease forwards;
+            max-width: 300px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .toast.error {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .toast.info {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .toast i {
+            font-size: 1.2rem;
+        }
+        
+        .toast.success i {
+            color: var(--success);
+        }
+        
+        .toast.error i {
+            color: var(--accent);
+        }
+        
+        .toast.info i {
+            color: var(--secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links, .nav-icons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .slider-nav {
+                display: none;
+            }
+            
+            .game-window {
+                height: 400px;
+            }
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100%;
+            background: rgba(18,18,18,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 5rem 2rem 2rem;
+            transition: all 0.5s ease;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.3);
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-links {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mobile-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .mobile-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .mobile-icons a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-icons a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hamburger animation */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Game canvas */
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Floating chat */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-button:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .chat-button i {
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0);
+            opacity: 0;
+            transform-origin: bottom right;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .chat-window.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .chat-header {
+            background: var(--primary);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .chat-title img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .chat-title div h3 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .chat-title div p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .chat-close {
+            width: 30px;
+            height: 30px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-close:hover {
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .message.received {
+            background: rgba(255,255,255,0.05);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+        
+        .message.sent {
+            background: var(--primary);
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+        
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: var(--light);
+            outline: none;
+        }
+        
+        .chat-input button {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border: none;
+            border-radius: 5px;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .chat-input button:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <div class="logo">NEXUS</div>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Games</a>
+                <a href="#">News</a>
+                <a href="#">Reviews</a>
+                <a href="#">Forums</a>
+            </div>
+            <div class="nav-icons">
+                <a href="#" id="searchBtn"><i class="fas fa-search"></i></a>
+                <a href="#" id="loginBtn"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Games</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Forums</a></li>
+        </ul>
+        <div class="mobile-icons">
+            <a href="#"><i class="fas fa-search"></i></a>
+            <a href="#"><i class="fas fa-user"></i></a>
+            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </div>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Your Next Gaming Adventure</h1>
+            <p>Explore the latest releases, connect with fellow gamers, and stay updated with industry news all in one place.</p>
+            <a href="#" class="btn">Browse Games</a>
+        </div>
+    </section>
+    
+    <section class="featured">
+        <div class="bg-particles" id="particles"></div>
+        <h2 class="section-title">Featured Games</h2>
+        <div class="games-grid">
+            <div class="game-card" data-game="cyber-odyssey">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 1" class="game-img">
+                <div class="game-info">
+                    <h3 class="game-title">Cyber Odyssey</h3>
+                    <p class="game-desc">Embark on an epic journey through a dystopian future where technology has evolved beyond human control.</p>
+                    <div class="game-meta">
+                        <span class="game-price">$59.99</span>
+                        <div class="game-rating">
+                            <span>4.8</span>
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#game-demo" class="play-now">Play Demo</a>
+            </div>
+            
+            <div class="game-card" data-game="astral-legends">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 2" class="game-img">
+                <div class="game-info">
+                                      <h3 class="game-title">Astral Legends</h3>
+                    <p class="game-desc">A breathtaking MMORPG set in a vast universe where magic and technology intertwine.</p>
+                    <div class="game-meta">
+                        <span class="game-price">$49.99</span>
+                        <div class="game-rating">
+                            <span>4.6</span>
+                            <span>★★★★☆</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#game-demo" class="play-now">Play Demo</a>
+            </div>
+            
+            <div class="game-card" data-game="velocity-drift">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 3" class="game-img">
+                <div class="game-info">
+                    <h3 class="game-title">Velocity Drift</h3>
+                    <p class="game-desc">Push the limits of speed in this adrenaline-fueled racing game with next-gen physics.</p>
+                    <div class="game-meta">
+                        <span class="game-price">$39.99</span>
+                        <div class="game-rating">
+                            <span>4.7</span>
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#game-demo" class="play-now">Play Demo</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="game-trailer">
+        <h2 class="section-title">Featured Trailer</h2>
+        <div class="trailer-container">
+            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trailer Thumbnail" class="trailer-thumbnail">
+            <div class="trailer-overlay" id="trailerOverlay">
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="news">
+        <h2 class="section-title">Latest News</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="News 1" class="news-img">
+                <div class="news-info">
+                    <span class="news-date"><i class="fas fa-calendar-alt"></i> June 18, 2025</span>
+                    <h3 class="news-title">Next-Gen Console Revealed at E3</h3>
+                    <p class="news-excerpt">The gaming world is buzzing with excitement as the latest console promises revolutionary features and unprecedented performance.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="News 2" class="news-img">
+                <div class="news-info">
+                    <span class="news-date"><i class="fas fa-calendar-alt"></i> June 15, 2025</span>
+                    <h3 class="news-title">Indie Developer Spotlight: Rising Stars</h3>
+                    <p class="news-excerpt">Meet the small teams making big waves in the industry with innovative gameplay mechanics and compelling storytelling.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="News 3" class="news-img">
+                <div class="news-info">
+                    <span class="news-date"><i class="fas fa-calendar-alt"></i> June 10, 2025</span>
+                    <h3 class="news-title">Esports Championship Breaks Viewership Records</h3>
+                    <p class="news-excerpt">The grand finals of the Global Gaming League attracted over 15 million concurrent viewers, setting a new milestone for competitive gaming.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="game-demo" id="game-demo">
+        <h2 class="section-title">Try Game Demos</h2>
+        <div class="demo-container">
+            <div class="demo-header">
+                <p>Experience our games firsthand with interactive demos. No downloads required - play directly in your browser!</p>
+            </div>
+            
+            <div class="game-selection">
+                <div class="game-option active" data-game="cyber-odyssey">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cyber Odyssey">
+                    <p>Cyber Odyssey</p>
+                </div>
+                <div class="game-option" data-game="astral-legends">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Astral Legends">
+                    <p>Astral Legends</p>
+                </div>
+                <div class="game-option" data-game="velocity-drift">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Velocity Drift">
+                    <p>Velocity Drift</p>
+                </div>
+            </div>
+            
+            <div class="game-window">
+                <canvas id="gameCanvas"></canvas>
+                <div class="game-loading" id="gameLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading game demo...</p>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-btn" id="startGame"><i class="fas fa-play"></i> Start</button>
+                <button class="control-btn" id="pauseGame"><i class="fas fa-pause"></i> Pause</button>
+                <button class="control-btn" id="resetGame"><i class="fas fa-redo"></i> Reset</button>
+                <button class="control-btn" id="fullscreenGame"><i class="fas fa-expand"></i> Fullscreen</button>
+                <button class="control-btn" id="muteGame"><i class="fas fa-volume-up"></i> Sound</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="reviews">
+        <h2 class="section-title">Player Reviews</h2>
+        <div class="review-slider">
+            <div class="slider-nav slider-prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            
+            <div class="slider-container">
+                <div class="review-slide">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Alex Johnson</h4>
+                            <p>Verified Player</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"Cyber Odyssey completely blew me away with its immersive world and compelling storyline. The character development is top-notch, and the gameplay mechanics are intuitive yet challenging."</p>
+                    <div class="review-game">
+                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                        <div class="review-game-info">
+                            <h5>Cyber Odyssey</h5>
+                            <p>Action RPG</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-slide">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Samantha Lee</h4>
+                            <p>Pro Gamer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"Astral Legends offers an expansive universe to explore with friends. The community is welcoming, and the developers are constantly adding new content. My only gripe is some minor balancing issues."</p>
+                    <div class="review-game">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                        <div class="review-game-info">
+                            <h5>Astral Legends</h5>
+                            <p>MMORPG</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-slide">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Marcus Chen</h4>
+                            <p>Casual Gamer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"Velocity Drift is the perfect racing game for both casual players and enthusiasts. The controls are responsive, the tracks are diverse, and the customization options are endless. Highly recommended!"</p>
+                    <div class="review-game">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game">
+                        <div class="review-game-info">
+                            <h5>Velocity Drift</h5>
+                            <p>Racing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-nav slider-next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="slider-dots">
+                <div class="slider-dot active"></div>
+                <div class="slider-dot"></div>
+                <div class="slider-dot"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <h2>Join Our Gaming Community</h2>
+        <p>Connect with fellow gamers, participate in discussions, and get exclusive access to beta tests and special events.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn" style="background: var(--dark);">Sign Up Now</a>
+            <a href="#" class="btn" style="background: transparent; border: 2px solid var(--light);">Learn More</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">NEXUS</div>
+                <p class="footer-desc">Your ultimate destination for all things gaming. Stay connected, stay informed, and level up your gaming experience.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Games</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Forums</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Action</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Adventure</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> RPG</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Strategy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Sports</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                              <h3 class="footer-title">Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                </ul>
+                
+                <div class="newsletter">
+                    <p>Subscribe to our newsletter</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 NEXUS Gaming. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2 class="modal-title">Login to NEXUS</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password">
+                </div>
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <button type="submit" class="form-submit">Login</button>
+            </form>
+            <div class="social-login">
+                <p>Or login with</p>
+                <div class="social-buttons">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chat Widget -->
+    <div class="chat-button" id="chatButton">
+        <i class="fas fa-comments"></i>
+    </div>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-title">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Support Agent">
+                <div>
+                    <h3>Game Support</h3>
+                    <p>Online</p>
+                </div>
+            </div>
+            <div class="chat-close" id="chatClose">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message received">
+                Hi there! How can I help you with your gaming experience today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message..." id="messageInput">
+            <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <script>
+        // DOM Elements
+        const header = document.getElementById('header');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const chatButton = document.getElementById('chatButton');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const messageInput = document.getElementById('messageInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+        const trailerOverlay = document.getElementById('trailerOverlay');
+        const gameOptions = document.querySelectorAll('.game-option');
+        const gameLoading = document.getElementById('gameLoading');
+        const startGame = document.getElementById('startGame');
+        const pauseGame = document.getElementById('pauseGame');
+        const resetGame = document.getElementById('resetGame');
+        const fullscreenGame = document.getElementById('fullscreenGame');
+        const muteGame = document.getElementById('muteGame');
+        const gameCanvas = document.getElementById('gameCanvas');
+        const toastContainer = document.getElementById('toastContainer');
+        
+        // Particles Background
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                
+                // Random opacity
+                const opacity = Math.random() * 0.5 + 0.1;
+                
+                // Apply styles
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = opacity;
+                
+                // Animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                // Add to container
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Create floating animation
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes float {
+                    0%, 100% {
+                        transform: translateY(0) translateX(0);
+                    }
+                    25% {
+                        transform: translateY(-30px) translateX(15px);
+                    }
+                    50% {
+                        transform: translateY(-15px) translateX(-15px);
+                    }
+                    75% {
+                        transform: translateY(30px) translateX(15px);
+                    }
+                }
+            </style>
+        `);
+        
+        // Create particles
+        createParticles();
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Login modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('active');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+        
+        // Chat widget
+        chatButton.addEventListener('click', () => {
+            chatWindow.classList.toggle('active');
+        });
+        
+        chatClose.addEventListener('click', () => {
+            chatWindow.classList.remove('active');
+        });
+        
+        // Send message
+        function sendChatMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'sent');
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+                
+                // Clear input
+                messageInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate response after delay
+                setTimeout(() => {
+                    const botResponses = [
+                        "Thanks for your message! How can I assist you further?",
+                        "I understand. Is there anything specific about our games you'd like to know?",
+                        "That's a great question! Let me help you with that.",
+                        "I'll check that for you right away.",
+                        "Feel free to explore our game demos while you wait!"
+                    ];
+                    
+                    const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                    
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'received');
+                    botMessage.textContent = randomResponse;
+                    chatMessages.appendChild(botMessage);
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        sendMessage.addEventListener('click', sendChatMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+        
+        // Trailer video
+        trailerOverlay.addEventListener('click', () => {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = "https://www.w3schools.com/html/mov_bbb.mp4"; // Placeholder video
+            video.controls = true;
+            video.autoplay = true;
+            video.style.width = '100%';
+            video.style.height = '100%';
+            
+            // Replace thumbnail with video
+            const trailerContainer = trailerOverlay.parentElement;
+            trailerContainer.innerHTML = '';
+            trailerContainer.appendChild(video);
+            
+            // Show toast notification
+            showToast('Trailer playing', 'info');
+        });
+        
+        // Game options
+        gameOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                gameOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                option.classList.add('active');
+                
+                // Show loading
+                gameLoading.style.display = 'flex';
+                
+                // Get game name
+                const gameName = option.getAttribute('data-game');
+                
+                // Simulate loading
+                setTimeout(() => {
+                    gameLoading.style.display = 'none';
+                    
+                    // Initialize game (placeholder)
+                    initGame(gameName);
+                    
+                    // Show toast
+                    showToast(`${gameName.replace('-', ' ')} demo loaded`, 'success');
+                }, 2000);
+            });
+        });
+        
+        // Game controls
+        startGame.addEventListener('click', () => {
+            showToast('Game started', 'success');
+            // Game start logic would go here
+        });
+        
+        pauseGame.addEventListener('click', () => {
+            showToast('Game paused', 'info');
+            // Game pause logic would go here
+        });
+        
+        resetGame.addEventListener('click', () => {
+            showToast('Game reset', 'info');
+            // Game reset logic would go here
+        });
+        
+        let isMuted = false;
+        muteGame.addEventListener('click', () => {
+            isMuted = !isMuted;
+            if (isMuted) {
+                muteGame.innerHTML = '<i class="fas fa-volume-mute"></i> Muted';
+                showToast('Sound muted', 'info');
+            } else {
+                muteGame.innerHTML = '<i class="fas fa-volume-up"></i> Sound';
+                showToast('Sound enabled', 'info');
+            }
+            // Mute logic would go here
+        });
+        
+        fullscreenGame.addEventListener('click', () => {
+            const gameWindow = document.querySelector('.game-window');
+            
+            if (!document.fullscreenElement) {
+                if (gameWindow.requestFullscreen) {
+                    gameWindow.requestFullscreen();
+                }
+                showToast('Fullscreen mode', 'info');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+        
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.classList.add('toast', type);
+            
+            let icon;
+            switch (type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            toastContainer.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Simple game initialization (placeholder)
+        function initGame(gameName) {
+            const ctx = gameCanvas.getContext('2d');
+            
+            // Set canvas size
+            gameCanvas.width = gameCanvas.parentElement.clientWidth;
+            gameCanvas.height = gameCanvas.parentElement.clientHeight;
+            
+            // Game variables
+            let gameRunning = false;
+            let gameObjects = [];
+            
+            // Different game setups based on selection
+            switch (gameName) {
+                case 'cyber-odyssey':
+                    // Cyber Odyssey - simple shooting game
+                    setupShooterGame(ctx, gameCanvas);
+                    break;
+                case 'astral-legends':
+                    // Astral Legends - space exploration
+                    setupSpaceGame(ctx, gameCanvas);
+                    break;
+                case 'velocity-drift':
+                    // Velocity Drift - racing game
+                    setupRacingGame(ctx, gameCanvas);
+                    break;
+                default:
+                    setupShooterGame(ctx, gameCanvas);
+            }
+        }
+        
+        // Setup shooter game
+        function setupShooterGame(ctx, canvas) {
+            // Game variables
+            let player = {
+                x: canvas.width / 2,
+                y: canvas.height - 50,
+                width: 40,
+                height: 40,
+                color: '#8A2BE2',
+                speed: 5
+            };
+            
+            let bullets = [];
+            let enemies = [];
+            let score = 0;
+            
+            // Create enemies
+            for (let i = 0; i < 5; i++) {
+                enemies.push({
+                    x: Math.random() * (canvas.width - 30),
+                    y: Math.random() * 200,
+                    width: 30,
+                    height: 30,
+                    color: '#FF4500',
+                                        speed: 2
+                });
+            }
+            
+            // Game loop
+            function gameLoop() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background
+                ctx.fillStyle = '#121212';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw grid lines for cyber effect
+                ctx.strokeStyle = 'rgba(138, 43, 226, 0.2)';
+                ctx.lineWidth = 1;
+                
+                // Vertical lines
+                for (let x = 0; x < canvas.width; x += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                
+                // Horizontal lines
+                for (let y = 0; y < canvas.height; y += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+                
+                // Draw player
+                ctx.fillStyle = player.color;
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+                
+                // Draw bullets
+                ctx.fillStyle = '#00BFFF';
+                bullets.forEach((bullet, index) => {
+                    bullet.y -= 10;
+                    ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                    
+                    // Remove bullets that are off screen
+                    if (bullet.y < 0) {
+                        bullets.splice(index, 1);
+                    }
+                    
+                    // Check for collision with enemies
+                    enemies.forEach((enemy, enemyIndex) => {
+                        if (
+                            bullet.x < enemy.x + enemy.width &&
+                            bullet.x + bullet.width > enemy.x &&
+                            bullet.y < enemy.y + enemy.height &&
+                            bullet.y + bullet.height > enemy.y
+                        ) {
+                            // Remove bullet and enemy
+                            bullets.splice(index, 1);
+                            enemies.splice(enemyIndex, 1);
+                            
+                            // Increase score
+                            score += 10;
+                            
+                            // Add new enemy
+                            enemies.push({
+                                x: Math.random() * (canvas.width - 30),
+                                y: 0,
+                                width: 30,
+                                height: 30,
+                                color: '#FF4500',
+                                speed: 2 + Math.random() * 2
+                            });
+                        }
+                    });
+                });
+                
+                // Draw enemies
+                enemies.forEach((enemy, index) => {
+                    enemy.y += enemy.speed;
+                    ctx.fillStyle = enemy.color;
+                    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                    
+                    // Reset enemy if it goes off screen
+                    if (enemy.y > canvas.height) {
+                        enemy.y = 0;
+                        enemy.x = Math.random() * (canvas.width - 30);
+                    }
+                    
+                    // Check for collision with player
+                    if (
+                        player.x < enemy.x + enemy.width &&
+                        player.x + player.width > enemy.x &&
+                        player.y < enemy.y + enemy.height &&
+                        player.y + player.height > enemy.y
+                    ) {
+                        // Game over logic would go here
+                        showToast('Game Over! Score: ' + score, 'error');
+                        // Reset game
+                        score = 0;
+                        enemies = [];
+                        for (let i = 0; i < 5; i++) {
+                            enemies.push({
+                                x: Math.random() * (canvas.width - 30),
+                                y: Math.random() * 200,
+                                width: 30,
+                                height: 30,
+                                color: '#FF4500',
+                                speed: 2
+                            });
+                        }
+                    }
+                });
+                
+                // Draw score
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Arial';
+                ctx.fillText('Score: ' + score, 10, 30);
+                
+                // Continue game loop
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // Start game loop
+            gameLoop();
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        player.x = Math.max(0, player.x - player.speed);
+                        break;
+                    case 'ArrowRight':
+                        player.x = Math.min(canvas.width - player.width, player.x + player.speed);
+                        break;
+                    case ' ':
+                        // Shoot bullet
+                        bullets.push({
+                            x: player.x + player.width / 2 - 5,
+                            y: player.y,
+                            width: 10,
+                            height: 20
+                        });
+                        break;
+                }
+            });
+            
+            // Mouse/touch controls
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                
+                // Move player with mouse
+                player.x = Math.min(Math.max(0, mouseX - player.width / 2), canvas.width - player.width);
+            });
+            
+            canvas.addEventListener('click', () => {
+                // Shoot bullet on click
+                bullets.push({
+                    x: player.x + player.width / 2 - 5,
+                    y: player.y,
+                    width: 10,
+                    height: 20
+                });
+            });
+            
+            // Game controls
+            startGame.addEventListener('click', () => {
+                // Game start logic
+                showToast('Cyber Odyssey started', 'success');
+            });
+            
+            resetGame.addEventListener('click', () => {
+                // Reset game
+                score = 0;
+                enemies = [];
+                bullets = [];
+                for (let i = 0; i < 5; i++) {
+                    enemies.push({
+                        x: Math.random() * (canvas.width - 30),
+                        y: Math.random() * 200,
+                        width: 30,
+                        height: 30,
+                        color: '#FF4500',
+                        speed: 2
+                    });
+                }
+                showToast('Game reset', 'info');
+            });
+        }
+        
+        // Setup space game
+        function setupSpaceGame(ctx, canvas) {
+            // Game variables
+            let ship = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                radius: 20,
+                angle: 0,
+                speed: 0,
+                maxSpeed: 5,
+                rotationSpeed: 0.1
+            };
+            
+            let stars = [];
+            let planets = [];
+            
+            // Create stars
+            for (let i = 0; i < 100; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    brightness: Math.random() * 0.5 + 0.5
+                });
+            }
+            
+            // Create planets
+            const planetColors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#1A535C', '#F7B267'];
+            for (let i = 0; i < 3; i++) {
+                planets.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 30 + 20,
+                    color: planetColors[Math.floor(Math.random() * planetColors.length)],
+                    speed: Math.random() * 0.5 + 0.1,
+                    angle: Math.random() * Math.PI * 2
+                });
+            }
+            
+            // Game loop
+            function gameLoop() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background
+                ctx.fillStyle = '#0A0A0A';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw stars
+                stars.forEach(star => {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${star.brightness})`;
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Twinkle effect
+                    star.brightness = Math.max(0.5, Math.min(1, star.brightness + (Math.random() - 0.5) * 0.05));
+                });
+                
+                // Draw planets
+                planets.forEach(planet => {
+                    // Update planet position
+                    planet.angle += planet.speed * 0.01;
+                    planet.x += Math.cos(planet.angle) * planet.speed;
+                    planet.y += Math.sin(planet.angle) * planet.speed;
+                    
+                    // Wrap around screen
+                    if (planet.x < -planet.radius) planet.x = canvas.width + planet.radius;
+                    if (planet.x > canvas.width + planet.radius) planet.x = -planet.radius;
+                    if (planet.y < -planet.radius) planet.y = canvas.height + planet.radius;
+                    if (planet.y > canvas.height + planet.radius) planet.y = -planet.radius;
+                    
+                    // Draw planet
+                    ctx.fillStyle = planet.color;
+                    ctx.beginPath();
+                    ctx.arc(planet.x, planet.y, planet.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Draw planet details
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                    ctx.beginPath();
+                    ctx.arc(planet.x - planet.radius * 0.3, planet.y - planet.radius * 0.3, planet.radius * 0.7, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                // Update ship position
+                ship.x += Math.cos(ship.angle) * ship.speed;
+                ship.y += Math.sin(ship.angle) * ship.speed;
+                
+                // Wrap around screen
+                if (ship.x < 0) ship.x = canvas.width;
+                if (ship.x > canvas.width) ship.x = 0;
+                if (ship.y < 0) ship.y = canvas.height;
+                if (ship.y > canvas.height) ship.y = 0;
+                
+                // Draw ship
+                ctx.save();
+                ctx.translate(ship.x, ship.y);
+                ctx.rotate(ship.angle);
+                
+                // Ship body
+                ctx.fillStyle = '#8A2BE2';
+                ctx.beginPath();
+                ctx.moveTo(ship.radius, 0);
+                ctx.lineTo(-ship.radius / 2, -ship.radius / 2);
+                ctx.lineTo(-ship.radius / 2, ship.radius / 2);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Engine glow
+                if (ship.speed > 0) {
+                    ctx.fillStyle = 'rgba(255, 69, 0, ' + (ship.speed / ship.maxSpeed) + ')';
+                    ctx.beginPath();
+                    ctx.moveTo(-ship.radius / 2, 0);
+                    ctx.lineTo(-ship.radius, -ship.radius / 3);
+                    ctx.lineTo(-ship.radius - Math.random() * 10, 0);
+                    ctx.lineTo(-ship.radius, ship.radius / 3);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+                
+                // Draw instructions
+                ctx.fillStyle = '#fff';
+                ctx.font = '16px Arial';
+                ctx.fillText('Use arrow keys to navigate', 10, 30);
+                ctx.fillText('Explore the universe!', 10, 60);
+                
+                // Continue game loop
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // Start game loop
+            gameLoop();
+            
+            // Keyboard controls
+            let keys = {};
+            
+            document.addEventListener('keydown', (e) => {
+                keys[e.key] = true;
+            });
+            
+            document.addEventListener('keyup', (e) => {
+                keys[e.key] = false;
+            });
+            
+            // Game update interval
+            setInterval(() => {
+                if (keys['ArrowUp']) {
+                    ship.speed = Math.min(ship.maxSpeed, ship.speed + 0.1);
+                } else {
+                    ship.speed = Math.max(0, ship.speed - 0.05);
+                }
+                
+                if (keys['ArrowLeft']) {
+                    ship.angle -= ship.rotationSpeed;
+                }
+                
+                if (keys['ArrowRight']) {
+                    ship.angle += ship.rotationSpeed;
+                }
+            }, 16);
+        }
+        
+        // Setup racing game
+        function setupRacingGame(ctx, canvas) {
+            // Game variables
+            let car = {
+                x: canvas.width / 2,
+                y: canvas.height - 100,
+                width: 40,
+                height: 70,
+                speed: 0,
+                maxSpeed: 10,
+                acceleration: 0.1,
+                deceleration: 0.05,
+                handling: 5
+            };
+            
+            let road = {
+                width: 300,
+                lanes: 3,
+                laneWidth: 100,
+                stripeWidth: 10,
+                stripeHeight: 50,
+                stripeGap: 30,
+                stripes: []
+            };
+            
+            let obstacles = [];
+            let score = 0;
+            let distance = 0;
+            
+            // Initialize road stripes
+            for (let y = -road.stripeHeight; y < canvas.height; y += road.stripeHeight + road.stripeGap) {
+                road.stripes.push({
+                    y: y
+                });
+            }
+            
+            // Game loop
+            function gameLoop() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background
+                ctx.fillStyle = '#1A1A1A';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw road
+                const roadX = (canvas.width - road.width) / 2;
+                ctx.fillStyle = '#333';
+                ctx.fillRect(roadX, 0, road.width, canvas.height);
+                
+                // Draw lane dividers
+                ctx.fillStyle = '#FFF';
+                for (let lane = 1; lane < road.lanes; lane++) {
+                    const laneX = roadX + lane * road.laneWidth - road.stripeWidth / 2;
+                    
+                    road.stripes.forEach(stripe => {
+                        ctx.fillRect(laneX, stripe.y, road.stripeWidth, road.stripeHeight);
+                    });
+                }
+                
+                // Update stripes
+                road.stripes.forEach(stripe => {
+                    stripe.y += car.speed;
+                    
+                    if (stripe.y > canvas.height) {
+                        stripe.y = -road.stripeHeight;
+                    }
+                });
+                
+                // Draw car
+                ctx.fillStyle = '#FF4500';
+                ctx.fillRect(car.x - car.width / 2, car.y - car.height / 2, car.width, car.height);
+                
+                // Car details
+                ctx.fillStyle = '#333';
+                                // Windshield
+                ctx.fillRect(car.x - car.width / 3, car.y - car.height / 2 + 10, car.width * 2/3, car.height / 4);
+                
+                // Wheels
+                ctx.fillStyle = '#000';
+                ctx.fillRect(car.x - car.width / 2 - 5, car.y - car.height / 3, 5, car.height / 4);
+                ctx.fillRect(car.x - car.width / 2 - 5, car.y + car.height / 6, 5, car.height / 4);
+                ctx.fillRect(car.x + car.width / 2, car.y - car.height / 3, 5, car.height / 4);
+                ctx.fillRect(car.x + car.width / 2, car.y + car.height / 6, 5, car.height / 4);
+                
+                // Update obstacles
+                if (Math.random() < 0.02 && car.speed > 0) {
+                    const lane = Math.floor(Math.random() * road.lanes);
+                    const obstacleX = roadX + lane * road.laneWidth + road.laneWidth / 2;
+                    
+                    obstacles.push({
+                        x: obstacleX,
+                        y: -50,
+                        width: 30,
+                        height: 60,
+                        speed: car.speed * 0.5
+                    });
+                }
+                
+                // Draw and update obstacles
+                ctx.fillStyle = '#8A2BE2';
+                obstacles.forEach((obstacle, index) => {
+                    obstacle.y += car.speed - obstacle.speed;
+                    ctx.fillRect(obstacle.x - obstacle.width / 2, obstacle.y - obstacle.height / 2, obstacle.width, obstacle.height);
+                    
+                    // Check for collision
+                    if (
+                        car.x - car.width / 2 < obstacle.x + obstacle.width / 2 &&
+                        car.x + car.width / 2 > obstacle.x - obstacle.width / 2 &&
+                        car.y - car.height / 2 < obstacle.y + obstacle.height / 2 &&
+                        car.y + car.height / 2 > obstacle.y - obstacle.height / 2
+                    ) {
+                        // Collision detected
+                        car.speed = Math.max(0, car.speed - 2);
+                        obstacles.splice(index, 1);
+                        showToast('Crashed! Slow down!', 'error');
+                    }
+                    
+                    // Remove obstacles that are off screen
+                    if (obstacle.y > canvas.height + 100) {
+                        obstacles.splice(index, 1);
+                        score += 10;
+                    }
+                });
+                
+                // Update score and distance
+                if (car.speed > 0) {
+                    distance += car.speed / 10;
+                    score += car.speed / 100;
+                }
+                
+                // Draw score and speed
+                ctx.fillStyle = '#FFF';
+                ctx.font = '20px Arial';
+                ctx.fillText('Score: ' + Math.floor(score), 10, 30);
+                ctx.fillText('Speed: ' + Math.floor(car.speed * 10) + ' km/h', 10, 60);
+                ctx.fillText('Distance: ' + Math.floor(distance) + ' m', 10, 90);
+                
+                // Continue game loop
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // Start game loop
+            gameLoop();
+            
+            // Keyboard controls
+            let keys = {};
+            
+            document.addEventListener('keydown', (e) => {
+                keys[e.key] = true;
+            });
+            
+            document.addEventListener('keyup', (e) => {
+                keys[e.key] = false;
+            });
+            
+            // Game update interval
+            setInterval(() => {
+                if (keys['ArrowUp']) {
+                    car.speed = Math.min(car.maxSpeed, car.speed + car.acceleration);
+                } else if (keys['ArrowDown']) {
+                    car.speed = Math.max(0, car.speed - car.deceleration * 2);
+                } else {
+                    car.speed = Math.max(0, car.speed - car.deceleration);
+                }
+                
+                if (keys['ArrowLeft']) {
+                    car.x = Math.max(
+                        (canvas.width - road.width) / 2 + car.width / 2,
+                        car.x - car.handling * (car.speed / car.maxSpeed)
+                    );
+                }
+                
+                if (keys['ArrowRight']) {
+                    car.x = Math.min(
+                        (canvas.width - road.width) / 2 + road.width - car.width / 2,
+                        car.x + car.handling * (car.speed / car.maxSpeed)
+                    );
+                }
+            }, 16);
+            
+            // Touch controls for mobile
+            let touchStartX = 0;
+            
+            canvas.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                car.speed = Math.min(car.maxSpeed, car.speed + car.acceleration * 5);
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                const touchX = e.touches[0].clientX;
+                const diff = touchX - touchStartX;
+                
+                car.x = Math.max(
+                    (canvas.width - road.width) / 2 + car.width / 2,
+                    Math.min(
+                        (canvas.width - road.width) / 2 + road.width - car.width / 2,
+                        car.x + diff / 10
+                    )
+                );
+                
+                touchStartX = touchX;
+            });
+            
+            canvas.addEventListener('touchend', () => {
+                // Slow down when not touching
+                setTimeout(() => {
+                    car.speed = Math.max(0, car.speed - car.deceleration * 5);
+                }, 1000);
+            });
+        }
+        
+        // Review slider functionality
+        const sliderContainer = document.querySelector('.slider-container');
+        const slides = document.querySelectorAll('.review-slide');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.querySelector('.slider-prev');
+        const nextBtn = document.querySelector('.slider-next');
+        
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            // Update current slide
+            currentSlide = index;
+            
+            // Update slider position
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            sliderDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+        
+        // Initialize slider
+        sliderContainer.style.display = 'flex';
+        sliderContainer.style.transition = 'transform 0.5s ease';
+        slides.forEach(slide => {
+            slide.style.flex = '0 0 100%';
+        });
+        
+        // Slider navigation
+        prevBtn.addEventListener('click', () => {
+            showSlide(Math.max(0, currentSlide - 1));
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            showSlide(Math.min(slides.length - 1, currentSlide + 1));
+        });
+        
+        // Slider dots
+        sliderDots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showSlide(i);
+            });
+        });
+        
+        // Auto slide
+        setInterval(() => {
+            showSlide((currentSlide + 1) % slides.length);
+        }, 5000);
+        
+        // Form submission
+        document.querySelector('.login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                loginModal.classList.remove('active');
+                showToast('Login successful!', 'success');
+            } else {
+                showToast('Please fill in all fields', 'error');
+            }
+        });
+        
+        // Newsletter subscription
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.querySelector('.newsletter-input').value;
+            
+            if (email) {
+                showToast('Thanks for subscribing!', 'success');
+                document.querySelector('.newsletter-input').value = '';
+            } else {
+                showToast('Please enter your email', 'error');
+            }
+        });
+        
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.game-card, .news-card, .section-title, .review-slide').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Add animation classes
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .game-card, .news-card, .section-title, .review-slide {
+                    opacity: 0;
+                    transform: translateY(30px);
+                    transition: opacity 0.8s ease, transform 0.8s ease;
+                }
+                
+                .game-card.animate, .news-card.animate, .section-title.animate, .review-slide.animate {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                
+                .section-title.animate::after {
+                    width: 100px;
+                    transition: width 1s ease 0.3s;
+                }
+                
+                .section-title::after {
+                    width: 0;
+                }
+            </style>
+        `);
+        
+        // Initialize the page
+        window.addEventListener('load', () => {
+            // Hide loading spinner
+            gameLoading.style.display = 'none';
+            
+            // Initialize first game
+            initGame('cyber-odyssey');
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Welcome to NEXUS Gaming!', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
